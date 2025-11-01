@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+@layer base {
+  * {
+    @apply antialiased;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply m-0 font-body text-jamia-text bg-white;
+    font-family: 'Inter', 'Open Sans', system-ui, sans-serif;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  button, a {
+    @apply focus:outline-none focus:ring-2 focus:ring-jamia-primary focus:ring-offset-2;
+  }
+
+  /* Touch-friendly targets */
+  button, a, input, select, textarea {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-md border border-white/10;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-jamia-primary to-jamia-accent bg-clip-text text-transparent;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-1;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 bg-jamia-accent text-white rounded-lg font-semibold text-lg hover:bg-jamia-accent-dark transition-all transform hover:scale-105 shadow-lg active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold text-lg hover:bg-white/20 transition-all border-2 border-white/30 hover:border-white/50;
+  }
+
+  .input-modern {
+    @apply w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-jamia-primary focus:border-jamia-primary transition-all duration-300 bg-white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .parallax {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
