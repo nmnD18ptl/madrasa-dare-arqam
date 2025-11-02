@@ -147,15 +147,15 @@ const Gallery: React.FC<GalleryProps> = ({ language }) => {
       </section>
 
       {/* Image Modal */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
-          >
+      {selectedImage && (
+        <motion.div
+          key="image-modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
             <motion.button
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -179,8 +179,7 @@ const Gallery: React.FC<GalleryProps> = ({ language }) => {
               onClick={(e) => e.stopPropagation()}
             />
           </motion.div>
-        )}
-      </AnimatePresence>
+      )}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaArrowUp } from 'react-icons/fa';
 
 const BackToTop: React.FC = () => {
@@ -26,9 +26,10 @@ const BackToTop: React.FC = () => {
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isVisible && (
         <motion.button
+          key="back-to-top"
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
@@ -41,7 +42,7 @@ const BackToTop: React.FC = () => {
           <FaArrowUp className="text-xl" />
         </motion.button>
       )}
-    </AnimatePresence>
+    </>
   );
 };
 

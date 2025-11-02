@@ -250,15 +250,15 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
         </div>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0, y: -20 }}
-              animate={{ opacity: 1, height: 'auto', y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="lg:hidden mt-2 bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100"
-            >
+        {isMobileMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0, y: -20 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="lg:hidden mt-2 bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100"
+          >
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.id}
@@ -309,8 +309,7 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
                 </div>
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
+        )}
       </nav>
     </motion.header>
   );

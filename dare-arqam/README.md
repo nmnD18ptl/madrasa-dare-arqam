@@ -58,6 +58,56 @@ npm run build
 
 This creates an optimized production build in the `build` folder.
 
+## Deployment
+
+### Deploy to GitHub Pages
+
+1. **Create a GitHub repository** (if you haven't already)
+
+2. **Update homepage in package.json**:
+   ```json
+   "homepage": "https://YOUR_USERNAME.github.io/YOUR_REPO_NAME"
+   ```
+   Replace `YOUR_USERNAME` and `YOUR_REPO_NAME` with your GitHub details.
+
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+4. **Push code to GitHub**:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git push -u origin main
+   ```
+
+5. **Deploy to GitHub Pages**:
+   ```bash
+   npm run deploy
+   ```
+
+6. **Enable GitHub Pages** (if needed):
+   - Go to repository **Settings** → **Pages**
+   - Select **gh-pages** branch as source
+   - Click **Save**
+
+Your site will be live at: `https://YOUR_USERNAME.github.io/YOUR_REPO_NAME`
+
+**For detailed instructions, see [GITHUB_PAGES_DEPLOYMENT.md](./GITHUB_PAGES_DEPLOYMENT.md)**
+
+### Alternative: Deploy to Vercel
+
+For faster deployment and automatic updates:
+1. Push code to GitHub
+2. Import repository on [vercel.com](https://vercel.com)
+3. Deploy automatically
+
+**For detailed instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)**
+
 ## Project Structure
 
 ```

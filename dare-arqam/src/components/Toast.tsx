@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaCheckCircle, FaExclamationCircle, FaTimes } from 'react-icons/fa';
 
 export type ToastType = 'success' | 'error' | 'info';
@@ -35,9 +35,10 @@ const Toast: React.FC<ToastProps> = ({ message, type, isVisible, onClose, durati
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isVisible && (
         <motion.div
+          key="toast"
           initial={{ opacity: 0, y: -50, x: '-50%' }}
           animate={{ opacity: 1, y: 0, x: '-50%' }}
           exit={{ opacity: 0, y: -50, x: '-50%' }}
@@ -54,7 +55,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, isVisible, onClose, durati
           </button>
         </motion.div>
       )}
-    </AnimatePresence>
+    </>
   );
 };
 
