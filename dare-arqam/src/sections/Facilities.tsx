@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { FaBed, FaMosque, FaChalkboardTeacher, FaBook, FaUtensils, FaFutbol } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -71,54 +71,16 @@ const Facilities: React.FC<FacilitiesProps> = ({ language }) => {
 
   const FacilityCard: React.FC<{ facility: typeof facilities[0]; index: number }> = ({ facility, index }) => {
     const Icon = facility.icon;
-    const [isHovered, setIsHovered] = useState(false);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    const rotateX = useSpring(useMotionValue(0));
-    const rotateY = useSpring(useMotionValue(0));
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const mouseX = e.clientX - centerX;
-      const mouseY = e.clientY - centerY;
-      
-      const rotateXValue = (mouseY / rect.height) * -10;
-      const rotateYValue = (mouseX / rect.width) * 10;
-      
-      rotateX.set(rotateXValue);
-      rotateY.set(rotateYValue);
-      x.set(mouseX * 0.1);
-      y.set(mouseY * 0.1);
-    };
-
-    const handleMouseLeave = () => {
-      setIsHovered(false);
-      rotateX.set(0);
-      rotateY.set(0);
-      x.set(0);
-      y.set(0);
-    };
 
     return (
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.9 }}
         animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ delay: index * 0.1, duration: 0.5 }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: 'preserve-3d',
-          perspective: '1000px',
-        }}
+        whileHover={{ y: -8 }}
         className="relative"
       >
-        <motion.div
-          style={{ x, y }}
+        <div
           className="glass-dark rounded-2xl p-6 sm:p-8 border-2 border-white/20 hover:border-white/40 transition-all duration-300 relative overflow-hidden group"
         >
           {/* Gradient Border Glow */}
@@ -144,11 +106,8 @@ const Facilities: React.FC<FacilitiesProps> = ({ language }) => {
           </div>
 
           {/* Shine Effect */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
-            style={{ skewX: -20 }}
-          />
-        </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" style={{ transform: 'skewX(-20deg)' }} />
+        </div>
       </motion.div>
     );
   };

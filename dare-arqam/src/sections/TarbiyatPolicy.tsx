@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronDown, FaChevronUp, FaPray, FaHeart, FaClock, FaBroom, FaHandshake } from 'react-icons/fa';
+import { FaChevronDown, FaPray, FaHeart, FaClock, FaBroom, FaHandshake } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { TarbiyatPolicy as TarbiyatPolicyType } from '../types';
