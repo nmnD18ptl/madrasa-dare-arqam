@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import FloatingLabelInput from '../components/FloatingLabelInput';
 import Toast from '../components/Toast';
 import type { ToastType } from '../components/Toast';
+import jsPDF from 'jspdf';
 
 interface AdmissionsProps {
   language: 'en' | 'ur';
@@ -115,61 +116,136 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
   const handleDownloadProspectus = async () => {
     setIsDownloading(true);
     
-    // Create a simple PDF or download link
-    // For now, we'll create a downloadable text file that can be converted to PDF
-    const prospectusContent = `
-JAMIA DAR-E-ARQAM KAROSHI
-ADMISSION PROSPECTUS
-
-INSTITUTION OVERVIEW
-Jamia Dar-E-Arqam Karoshi is a distinguished residential Islamic educational institution for boys, dedicated to providing comprehensive Islamic education combined with contemporary academic curriculum.
-
-MANAGED BY
-Ulunuha Educational Trust
-
-EDUCATIONAL PROGRAMS
-- Quranic Studies (Hifz, Nazra, Tajweed)
-- Hadith & Islamic Sciences
-- Contemporary School Curriculum
-- Residential Program
-
-AGE GROUPS
-We accept students from ages 6-18 years
-
-REQUIRED DOCUMENTS
-- Birth Certificate
-- Previous School Records
-- Medical Certificate
-- Photographs
-
-CONTACT INFORMATION
-Location: Karoshi
-Coordinates: 16°21'51.7"N 74°34'43.2"E
-
-For more information, please contact us through our website or visit our campus.
-    `.trim();
-
-    // Create blob and download
-    const blob = new Blob([prospectusContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Jamia-Dar-E-Arqam-Karoshi-Prospectus.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    setTimeout(() => {
+    try {
+      // Create PDF document
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 20;
+      let yPos = margin;
+      
+      // Helper function to add a new page if needed
+      const checkPageBreak = (requiredHeight: number) => {
+        if (yPos + requiredHeight > pageHeight - margin) {
+          doc.addPage();
+          yPos = margin;
+          return true;
+        }
+        return false;
+      };
+      
+      // Helper function to add text with word wrap
+      const addText = (text: string, fontSize: number, isBold: boolean = false, color: [number, number, number] = [0, 0, 0], align: 'left' | 'center' | 'right' = 'left') => {
+        doc.setFontSize(fontSize);
+        doc.setFont('helvetica', isBold ? 'bold' : 'normal');
+        doc.setTextColor(color[0], color[1], color[2]);
+        
+        const lines = doc.splitTextToSize(text, pageWidth - 2 * margin);
+        lines.forEach((line: string) => {
+          checkPageBreak(fontSize * 0.5);
+          doc.text(line, margin, yPos, { align });
+          yPos += fontSize * 0.5;
+        });
+        yPos += 5;
+      };
+      
+      // Header with Islamic Green color
+      doc.setFillColor(27, 94, 32); // Islamic Green #1B5E20
+      doc.rect(0, 0, pageWidth, 40, 'F');
+      
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(24);
+      doc.setFont('helvetica', 'bold');
+      doc.text('JAMIA DAR-E-ARQAM KAROSHI', pageWidth / 2, 20, { align: 'center' });
+      
+      doc.setFontSize(14);
+      doc.text('ADMISSION PROSPECTUS', pageWidth / 2, 30, { align: 'center' });
+      
+      yPos = 50;
+      
+      // Institution Overview
+      addText('INSTITUTION OVERVIEW', 16, true, [27, 94, 32]);
+      addText(
+        'Jamia Dar-E-Arqam Karoshi is a distinguished residential Islamic educational institution for boys, dedicated to providing comprehensive Islamic education combined with contemporary academic curriculum.',
+        11,
+        false,
+        [0, 0, 0]
+      );
+      
+      // Managed By
+      addText('MANAGED BY', 14, true, [27, 94, 32]);
+      addText('Ulunuha Educational Trust', 12, false, [0, 0, 0]);
+      
+      // Educational Programs
+      addText('EDUCATIONAL PROGRAMS', 14, true, [27, 94, 32]);
+      const programs = [
+        '• Quranic Studies (Hifz, Nazra, Tajweed)',
+        '• Hadith & Islamic Sciences',
+        '• Contemporary School Curriculum',
+        '• Residential Program'
+      ];
+      programs.forEach(program => {
+        addText(program, 11, false, [0, 0, 0]);
+      });
+      
+      // Age Groups
+      addText('AGE GROUPS', 14, true, [27, 94, 32]);
+      addText('We accept students from ages 6-18 years', 11, false, [0, 0, 0]);
+      
+      // Required Documents
+      addText('REQUIRED DOCUMENTS', 14, true, [27, 94, 32]);
+      const documents = [
+        '• Birth Certificate',
+        '• Previous School Records',
+        '• Medical Certificate',
+        '• Photographs'
+      ];
+      documents.forEach(document => {
+        addText(document, 11, false, [0, 0, 0]);
+      });
+      
+      // Contact Information
+      addText('CONTACT INFORMATION', 14, true, [27, 94, 32]);
+      addText('Location: Karoshi', 11, false, [0, 0, 0]);
+      addText('Coordinates: 16°21\'51.7"N 74°34\'43.2"E', 11, false, [0, 0, 0]);
+      
+      // Footer
+      yPos = pageHeight - 30;
+      doc.setDrawColor(27, 94, 32);
+      doc.line(margin, yPos, pageWidth - margin, yPos);
+      yPos += 10;
+      
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text(
+        'For more information, please contact us through our website or visit our campus.',
+        pageWidth / 2,
+        yPos,
+        { align: 'center' }
+      );
+      
+      // Save PDF
+      doc.save('Jamia-Dar-E-Arqam-Karoshi-Prospectus.pdf');
+      
       setIsDownloading(false);
       setToast({
         message: language === 'en' 
-          ? 'Prospectus download started!' 
-          : 'پروسپیکٹس ڈاؤن لوڈ شروع ہو گیا!',
+          ? 'Prospectus downloaded successfully!' 
+          : 'پروسپیکٹس کامیابی سے ڈاؤن لوڈ ہو گیا!',
         type: 'success',
         visible: true,
       });
-    }, 500);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      setIsDownloading(false);
+      setToast({
+        message: language === 'en' 
+          ? 'Error downloading prospectus. Please try again.' 
+          : 'پروسپیکٹس ڈاؤن لوڈ کرنے میں خرابی۔ براہ کرم دوبارہ کوشش کریں۔',
+        type: 'error',
+        visible: true,
+      });
+    }
   };
 
   const closeToast = () => {

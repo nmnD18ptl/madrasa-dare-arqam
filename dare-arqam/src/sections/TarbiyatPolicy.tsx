@@ -26,6 +26,13 @@ const TarbiyatPolicy: React.FC<TarbiyatPolicyProps> = ({ language }) => {
         'Encouragement of optional prayers (Nawafil)',
         'Regular Dhikr and remembrance of Allah',
       ],
+      contentUrdu: [
+        'پانچ وقت کی نماز (لازمی)',
+        'صبح کی اسمبلی دعا، قرآن کی تلاوت اور روحانی مشقوں کے ساتھ',
+        'جمعہ کی جماعت کی نماز مسجد میں',
+        'نفل نمازوں کی حوصلہ افزائی',
+        'ذکر اور اللہ کی یاد کا باقاعدہ معمول',
+      ],
     },
     {
       id: 'akhlaaq',
@@ -38,6 +45,14 @@ const TarbiyatPolicy: React.FC<TarbiyatPolicyProps> = ({ language }) => {
         'Avoiding: lies, backbiting, anger, and negligence',
         'Teaching Islamic greetings (Salam) and ethical manners',
         'Promoting honesty, integrity, and truthfulness',
+      ],
+      contentUrdu: [
+        'اساتذہ اور بزرگوں کا احترام',
+        'چھوٹوں کے لیے شفقت',
+        'مہذب گفتگو',
+        'اجتناب: جھوٹ، غیبت، غصہ، اور لاپروائی',
+        'اسلامی سلام (السلام علیکم) اور اخلاقی آداب کی تعلیم',
+        'دیانتداری، ایمانداری اور سچائی کی حوصلہ افزائی',
       ],
     },
     {
@@ -52,6 +67,14 @@ const TarbiyatPolicy: React.FC<TarbiyatPolicyProps> = ({ language }) => {
         'Time management and organizational skills',
         'Accountability for actions and commitments',
       ],
+      contentUrdu: [
+        'دیر سے آنے والوں کے لیے نظم و ضبط کی پالیسی',
+        'مسلسل مسائل کے لیے والدین سے رابطہ',
+        'ہوم ورک مکمل کرنے کی ضروریات',
+        'ذاتی سامان، کپڑے اور کتابوں کی دیکھ بھال',
+        'وقت کی منصوبہ بندی اور تنظیمی مہارتیں',
+        'اعمال اور وعدوں کی ذمہ داری',
+      ],
     },
     {
       id: 'safai',
@@ -65,6 +88,14 @@ const TarbiyatPolicy: React.FC<TarbiyatPolicyProps> = ({ language }) => {
         'Islamic etiquette in daily activities',
         'Respect for shared spaces',
       ],
+      contentUrdu: [
+        'ذاتی حفظان صحت کے معیارات',
+        'صاف کپڑے اور جسم',
+        'جگہ کی صفائی کا خیال رکھنا',
+        'صحت اور حفظان صحت کی آگاہی',
+        'روزمرہ سرگرمیوں میں اسلامی آداب',
+        'مشترکہ جگہوں کا احترام',
+      ],
     },
     {
       id: 'maasharti',
@@ -77,6 +108,14 @@ const TarbiyatPolicy: React.FC<TarbiyatPolicyProps> = ({ language }) => {
         'Conflict resolution skills',
         'Community service and social responsibility',
         'Building healthy relationships',
+      ],
+      contentUrdu: [
+        'ہم عمر اور کمیونٹی کے ساتھ مثبت تعامل',
+        'ٹیم ورک اور تعاون',
+        'تنوع اور اختلافات کا احترام',
+        'تنازعات حل کرنے کی مہارتیں',
+        'کمیونٹی سروس اور سماجی ذمہ داری',
+        'صحت مند تعلقات کی تعمیر',
       ],
     },
   ];
@@ -178,12 +217,14 @@ const TarbiyatPolicy: React.FC<TarbiyatPolicyProps> = ({ language }) => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                      <div className={`px-6 py-4 bg-gray-50 border-t border-gray-200 ${language === 'ur' ? 'text-right' : 'text-left'}`} dir={language === 'ur' ? 'rtl' : 'ltr'}>
                         <ul className="space-y-2">
-                          {policy.content.map((item, itemIndex) => (
-                            <li key={itemIndex} className="flex items-start space-x-3">
+                          {(language === 'ur' && policy.contentUrdu ? policy.contentUrdu : policy.content).map((item, itemIndex) => (
+                            <li key={itemIndex} className={`flex items-start ${language === 'ur' ? 'flex-row-reverse space-x-reverse' : ''} space-x-3`}>
                               <span className="text-jamia-accent-orange mt-1">•</span>
-                              <span className="text-gray-700">{item}</span>
+                              <span className="text-gray-700">
+                                {item}
+                              </span>
                             </li>
                           ))}
                         </ul>
