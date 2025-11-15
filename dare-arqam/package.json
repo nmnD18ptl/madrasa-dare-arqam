@@ -26,7 +26,7 @@
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6"
   },
-  "homepage": "https://nmnD18ptl.github.io/madrasa-karoshi",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
