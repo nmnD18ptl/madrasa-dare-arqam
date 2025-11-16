@@ -5,7 +5,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 const WhatsAppFloat: React.FC = () => {
   return (
     <motion.a
-      href="https://wa.me/91XXXXXXXXXX"
+      href="https://wa.me/+917022918777"
       target="_blank"
       rel="noopener noreferrer"
       initial={{ scale: 0 }}

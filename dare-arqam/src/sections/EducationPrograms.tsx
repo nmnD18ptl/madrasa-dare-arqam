@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaBookOpen, FaBook, FaGraduationCap, FaBed, FaChevronDown, FaChevronUp, FaCheck } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
-interface EducationProgramsProps {
-  language: 'en' | 'ur';
-}
-
-const EducationPrograms: React.FC<EducationProgramsProps> = ({ language }) => {
+const EducationPrograms: React.FC = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
@@ -26,62 +24,30 @@ const EducationPrograms: React.FC<EducationProgramsProps> = ({ language }) => {
   const programs = [
     {
       icon: FaBookOpen,
-      title: { en: 'Quranic Studies', ur: 'قرآنی تعلیم' },
-      description: {
-        en: 'Comprehensive Quranic education including Hifz (memorization), Nazra (reading), and Tajweed (proper recitation)',
-        ur: 'قرآن کی جامع تعلیم بشمول حفظ، ناظرہ اور تجوید',
-      },
-      items: [
-        { en: 'Hifz Program (Quran Memorization)', ur: 'حفظ پروگرام (قرآن حفظ کرنا)' },
-        { en: 'Nazra (Quran Reading)', ur: 'ناظرہ (قرآن پڑھنا)' },
-        { en: 'Tajweed (Proper Recitation Rules)', ur: 'تجوید (صحیح تلاوت کے قواعد)' },
-        { en: 'Tafseer (Quranic Exegesis)', ur: 'تفسیر (قرآن کی تشریح)' },
-      ],
+      titleKey: 'programs.quranic.title',
+      descriptionKey: 'programs.quranic.description',
+      itemsKey: 'programs.quranic.items',
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
       icon: FaBook,
-      title: { en: 'Hadith & Islamic Sciences', ur: 'حدیث اور اسلامی علوم' },
-      description: {
-        en: 'Deep study of Hadith literature, Fiqh (Islamic jurisprudence), Aqeedah (Islamic creed), and Seerah (Prophetic biography)',
-        ur: 'حدیث، فقہ، عقیدہ اور سیرت کی گہری تعلیم',
-      },
-      items: [
-        { en: 'Hadith Studies', ur: 'حدیث کا مطالعہ' },
-        { en: 'Fiqh (Islamic Jurisprudence)', ur: 'فقہ (اسلامی قانون)' },
-        { en: 'Aqeedah (Islamic Creed)', ur: 'عقیدہ (اسلامی عقائد)' },
-        { en: 'Seerah (Prophetic Biography)', ur: 'سیرت (نبی کریم کی سیرت)' },
-      ],
+      titleKey: 'programs.hadith.title',
+      descriptionKey: 'programs.hadith.description',
+      itemsKey: 'programs.hadith.items',
       gradient: 'from-jamia-primary to-jamia-primary-light',
     },
     {
       icon: FaGraduationCap,
-      title: { en: 'School Curriculum', ur: 'اسکول کا نصاب' },
-      description: {
-        en: 'Integrated contemporary school education covering core subjects aligned with standard educational boards',
-        ur: 'معیاری تعلیمی بورڈز کے مطابق بنیادی مضامین کا عصری اسکول کا نصاب',
-      },
-      items: [
-        { en: 'Mathematics & Sciences', ur: 'ریاضی اور سائنس' },
-        { en: 'Languages (Urdu, English, Arabic)', ur: 'زبانیں (اردو، انگریزی، عربی)' },
-        { en: 'Social Studies', ur: 'معاشرتی علوم' },
-        { en: 'Computer Education', ur: 'کمپیوٹر تعلیم' },
-      ],
+      titleKey: 'programs.school.title',
+      descriptionKey: 'programs.school.description',
+      itemsKey: 'programs.school.items',
       gradient: 'from-jamia-accent to-jamia-accent-light',
     },
     {
       icon: FaBed,
-      title: { en: 'Residential Program', ur: 'رہائشی پروگرام' },
-      description: {
-        en: 'Complete residential facility providing a safe, disciplined, and nurturing environment for holistic development',
-        ur: 'مکمل رہائشی سہولت جو سالماتی ترقی کے لیے محفوظ، منظم اور پرورش کا ماحول فراہم کرتی ہے',
-      },
-      items: [
-        { en: '24/7 Supervision & Care', ur: '24/7 نگرانی اور دیکھ بھال' },
-        { en: 'Structured Daily Schedule', ur: 'منظم روزانہ شیڈول' },
-        { en: 'Healthy Meals & Nutrition', ur: 'صحت مند کھانا اور غذائیت' },
-        { en: 'Health & Medical Support', ur: 'صحت اور طبی مدد' },
-      ],
+      titleKey: 'programs.residential.title',
+      descriptionKey: 'programs.residential.description',
+      itemsKey: 'programs.residential.items',
       gradient: 'from-purple-500 to-pink-500',
     },
   ];
@@ -126,7 +92,7 @@ const EducationPrograms: React.FC<EducationProgramsProps> = ({ language }) => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2 }}
           >
-            {language === 'en' ? 'Education Programs' : 'تعلیمی پروگرامز'}
+            {t('programs.title')}
           </motion.h2>
           <motion.div 
             className="w-24 h-1 bg-gradient-to-r from-jamia-accent to-jamia-primary mx-auto mb-6 sm:mb-8 rounded-full"
@@ -135,11 +101,7 @@ const EducationPrograms: React.FC<EducationProgramsProps> = ({ language }) => {
             transition={{ delay: 0.4, duration: 0.6 }}
           />
           <p className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto">
-            {language === 'en' ? (
-              'Our comprehensive educational programs combine traditional Islamic learning with contemporary academic excellence'
-            ) : (
-              'ہمارے جامع تعلیمی پروگرام روایتی اسلامی تعلیم کو عصری تعلیمی فضیلت کے ساتھ جوڑتے ہیں'
-            )}
+            {t('programs.subtitle')}
           </p>
         </motion.div>
 
@@ -169,16 +131,17 @@ const EducationPrograms: React.FC<EducationProgramsProps> = ({ language }) => {
                     </motion.div>
                     <div className="flex-1">
                       <h3 className="text-xl sm:text-2xl font-heading font-bold text-jamia-primary mb-2 sm:mb-3">
-                        {language === 'en' ? program.title.en : program.title.ur}
+                        {t(program.titleKey)}
                       </h3>
                       <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
-                        {language === 'en' ? program.description.en : program.description.ur}
+                        {t(program.descriptionKey)}
                       </p>
                       <button
                         onClick={() => toggleCard(index)}
-                        className="flex items-center space-x-2 text-jamia-accent hover:text-jamia-accent-dark font-medium text-sm sm:text-base transition-colors"
+                        className="flex items-center space-x-2 rtl:space-x-reverse text-jamia-accent hover:text-jamia-accent-dark font-medium text-sm sm:text-base transition-colors"
+                        aria-label={t('common.learnMore')}
                       >
-                        <span>{language === 'en' ? 'Learn More' : 'مزید جانیں'}</span>
+                        <span>{t('common.learnMore')}</span>
                         <motion.div
                           animate={{ rotate: isExpanded ? 180 : 0 }}
                           transition={{ duration: 0.3 }}
@@ -200,17 +163,17 @@ const EducationPrograms: React.FC<EducationProgramsProps> = ({ language }) => {
                   >
                     <div className="pt-4 border-t border-gray-200">
                       <ul className="space-y-2 sm:space-y-3">
-                        {program.items.map((item, itemIndex) => (
+                        {(t(program.itemsKey, { returnObjects: true }) as string[]).map((item, itemIndex) => (
                           <motion.li
                             key={itemIndex}
                             initial={{ opacity: 0, x: -10 }}
                             animate={isExpanded ? { opacity: 1, x: 0 } : {}}
                             transition={{ delay: itemIndex * 0.05 }}
-                            className="flex items-start space-x-3"
+                            className="flex items-start space-x-3 rtl:space-x-reverse rtl:flex-row-reverse"
                           >
                             <FaCheck className="text-jamia-accent mt-1 flex-shrink-0" />
                             <span className="text-sm sm:text-base text-gray-700">
-                              {language === 'en' ? item.en : item.ur}
+                              {item}
                             </span>
                           </motion.li>
                         ))}

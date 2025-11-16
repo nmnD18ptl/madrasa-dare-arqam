@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
@@ -15,22 +16,29 @@ import Gallery from './sections/Gallery';
 import Announcements from './sections/Announcements';
 
 function App() {
-  const [language, setLanguage] = useState<'en' | 'ur'>('en');
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    // Apply RTL styles to body if needed
+    const isRTL = ['ar', 'ur'].includes(i18n.language);
+    document.body.classList.toggle('rtl', isRTL);
+    document.body.classList.toggle('ltr', !isRTL);
+  }, [i18n.language]);
 
   return (
     <div className="App min-h-screen">
-      <Header language={language} onLanguageChange={setLanguage} />
+      <Header />
       <main>
-        <Hero language={language} />
-        <About language={language} />
-        <TarbiyatPolicy language={language} />
-        <EducationPrograms language={language} />
-        <Facilities language={language} />
-        <Testimonials language={language} />
-        <Gallery language={language} />
-        <Announcements language={language} />
-        <Admissions language={language} />
-        <Contact language={language} />
+        <Hero />
+        <About />
+        <TarbiyatPolicy />
+        <EducationPrograms />
+        <Facilities />
+        <Testimonials />
+        <Gallery />
+        <Announcements />
+        <Admissions />
+        <Contact />
       </main>
       <Footer />
       <WhatsAppFloat />

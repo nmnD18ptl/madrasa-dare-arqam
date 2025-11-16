@@ -1,70 +1,50 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaBed, FaMosque, FaChalkboardTeacher, FaBook, FaUtensils, FaFutbol } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
-interface FacilitiesProps {
-  language: 'en' | 'ur';
-}
-
-const Facilities: React.FC<FacilitiesProps> = ({ language }) => {
+const Facilities: React.FC = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const facilities = [
     {
       icon: FaBed,
-      title: { en: 'Residential Accommodation', ur: 'رہائشی رہائش' },
-      description: {
-        en: 'Comfortable and secure residential facilities with proper amenities for student accommodation',
-        ur: 'طلباء کی رہائش کے لیے مناسب سہولیات کے ساتھ آرام دہ اور محفوظ رہائشی سہولیات',
-      },
+      titleKey: 'facilities.residential.title',
+      descriptionKey: 'facilities.residential.description',
       gradient: 'from-blue-500 to-cyan-500',
     },
     {
       icon: FaMosque,
-      title: { en: 'Prayer Hall / Mosque', ur: 'نماز خانہ / مسجد' },
-      description: {
-        en: 'Beautiful prayer facilities for daily prayers and Friday congregational prayers',
-        ur: 'روزانہ نماز اور جمعہ کی اجتماعی نماز کے لیے خوبصورت نماز گاہ',
-      },
+      titleKey: 'facilities.mosque.title',
+      descriptionKey: 'facilities.mosque.description',
       gradient: 'from-jamia-primary to-jamia-primary-light',
     },
     {
       icon: FaChalkboardTeacher,
-      title: { en: 'Modern Classrooms', ur: 'جدید کلاس رومز' },
-      description: {
-        en: 'Well-equipped classrooms with modern teaching aids and comfortable learning environment',
-        ur: 'جدید تدریسی آلات اور آرام دہ تعلیمی ماحول کے ساتھ اچھی طرح سے لیس کلاس رومز',
-      },
+      titleKey: 'facilities.classrooms.title',
+      descriptionKey: 'facilities.classrooms.description',
       gradient: 'from-jamia-accent to-jamia-accent-light',
     },
     {
       icon: FaBook,
-      title: { en: 'Library & Study Hall', ur: 'کتب خانہ اور مطالعہ گاہ' },
-      description: {
-        en: 'Extensive collection of Islamic and academic books with quiet study spaces',
-        ur: 'پرسکون مطالعہ کے مقامات کے ساتھ اسلامی اور تعلیمی کتابوں کا وسیع ذخیرہ',
-      },
+      titleKey: 'facilities.library.title',
+      descriptionKey: 'facilities.library.description',
       gradient: 'from-purple-500 to-pink-500',
     },
     {
       icon: FaUtensils,
-      title: { en: 'Dining Facilities', ur: 'کھانے کی سہولیات' },
-      description: {
-        en: 'Clean and hygienic dining hall serving nutritious halal meals',
-        ur: 'صاف اور صحت بخش ڈائننگ ہال جو غذائیت بخش حلال کھانا پیش کرتا ہے',
-      },
+      titleKey: 'facilities.dining.title',
+      descriptionKey: 'facilities.dining.description',
       gradient: 'from-green-500 to-emerald-500',
     },
     {
       icon: FaFutbol,
-      title: { en: 'Sports & Recreation', ur: 'کھیل اور تفریح' },
-      description: {
-        en: 'Recreation areas and sports facilities for physical fitness and extracurricular activities',
-        ur: 'جسمانی تندرستی اور غیر نصابی سرگرمیوں کے لیے تفریحی مقامات اور کھیلوں کی سہولیات',
-      },
+      titleKey: 'facilities.sports.title',
+      descriptionKey: 'facilities.sports.description',
       gradient: 'from-orange-500 to-red-500',
     },
   ];
@@ -93,20 +73,20 @@ const Facilities: React.FC<FacilitiesProps> = ({ language }) => {
               className="flex justify-center mb-4 sm:mb-6"
             >
               <div className={`relative p-4 sm:p-5 bg-gradient-to-br ${facility.gradient} rounded-2xl shadow-lg`}>
-                <Icon className="text-3xl sm:text-4xl md:text-5xl text-white" />
+                <Icon className="text-3xl sm:text-4xl md:text-5xl text-white" aria-hidden="true" />
                 <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </motion.div>
             <h3 className="text-lg sm:text-xl font-heading font-semibold mb-3 sm:mb-4 text-center">
-              {language === 'en' ? facility.title.en : facility.title.ur}
+              {t(facility.titleKey)}
             </h3>
             <p className="text-sm sm:text-base text-gray-100 text-center leading-relaxed">
-              {language === 'en' ? facility.description.en : facility.description.ur}
+              {t(facility.descriptionKey)}
             </p>
           </div>
 
           {/* Shine Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" style={{ transform: 'skewX(-20deg)' }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" style={{ transform: 'skewX(-20deg)' }} aria-hidden="true" />
         </div>
       </motion.div>
     );
@@ -152,7 +132,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ language }) => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2 }}
           >
-            {language === 'en' ? 'Facilities' : 'سہولیات'}
+            {t('facilities.title')}
           </motion.h2>
           <motion.div 
             className="w-24 h-1 bg-gradient-to-r from-jamia-accent to-white mx-auto mb-6 sm:mb-8 rounded-full"
@@ -166,11 +146,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ language }) => {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.3 }}
           >
-            {language === 'en' ? (
-              'State-of-the-art facilities designed to support holistic education and development'
-            ) : (
-              'جدید ترین سہولیات جو سالماتی تعلیم اور ترقی کو فروغ دینے کے لیے ڈیزائن کی گئی ہیں'
-            )}
+            {t('facilities.subtitle')}
           </motion.p>
         </motion.div>
 

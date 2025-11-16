@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaBars, FaTimes, FaPhone, FaWhatsapp } from 'react-icons/fa';
-import { MdLanguage } from 'react-icons/md';
+import LanguageSelector from './LanguageSelector';
 
-interface HeaderProps {
-  language: 'en' | 'ur';
-  onLanguageChange: (lang: 'en' | 'ur') => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
+const Header: React.FC = () => {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -37,12 +34,12 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
   }, []);
 
   const navItems = [
-    { id: 'about', en: 'About', ur: 'تعارف' },
-    { id: 'tarbiyat', en: 'Tarbiyat Policy', ur: 'تربیت پالیسی' },
-    { id: 'programs', en: 'Programs', ur: 'پروگرامز' },
-    { id: 'facilities', en: 'Facilities', ur: 'سہولیات' },
-    { id: 'admissions', en: 'Admissions', ur: 'داخلہ' },
-    { id: 'contact', en: 'Contact', ur: 'رابطہ' },
+    { id: 'about', key: 'header.nav.about' },
+    { id: 'tarbiyat', key: 'header.nav.tarbiyat' },
+    { id: 'programs', key: 'header.nav.programs' },
+    { id: 'facilities', key: 'header.nav.facilities' },
+    { id: 'admissions', key: 'header.nav.admissions' },
+    { id: 'contact', key: 'header.nav.contact' },
   ];
 
   const scrollToSection = (id: string) => {
@@ -70,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-3 sm:py-4">
-          {/* Logo - Top Left Corner */}
+          {/* Logo */}
           <motion.a
             href="#"
             onClick={(e) => {
@@ -80,19 +77,21 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="flex items-center space-x-3 sm:space-x-4 flex-shrink-0 group z-10"
+            aria-label={t('header.title')}
           >
             {/* Logo Image */}
             <div className="relative">
               <img 
                 src="/logo.png" 
-                alt="Jamia Dar-E-Arqam Logo" 
+                alt={t('header.title')}
                 className={`h-12 sm:h-14 md:h-16 w-auto transition-all duration-300 group-hover:brightness-110 group-hover:drop-shadow-lg ${
                   logoError ? 'hidden' : 'block'
                 }`}
+                loading="lazy"
                 onError={() => setLogoError(true)}
                 onLoad={() => setLogoError(false)}
               />
-              {/* Fallback Logo Design - Shows when logo fails to load */}
+              {/* Fallback Logo Design */}
               {logoError && (
                 <motion.div 
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -115,12 +114,12 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
               <div className={`text-base sm:text-lg md:text-xl font-heading font-bold leading-tight transition-colors duration-300 ${
                 isScrolled ? 'text-jamia-primary' : 'text-white drop-shadow-lg'
               }`}>
-                JAMIA DAR-E-ARQAM
+                {t('header.title')}
               </div>
               <div className={`text-xs sm:text-sm font-medium transition-colors duration-300 ${
                 isScrolled ? 'text-gray-600' : 'text-white/80 drop-shadow'
               }`}>
-                {language === 'en' ? 'Karoshi' : 'کروشی'}
+                {t('header.subtitle')}
               </div>
             </div>
           </motion.a>
@@ -142,8 +141,9 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
                       ? 'text-white bg-white/20'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                 }`}
+                aria-label={t(item.key)}
               >
-                {language === 'en' ? item.en : item.ur}
+                {t(item.key)}
                 {activeSection === item.id && (
                   <motion.div
                     layoutId="activeIndicator"
@@ -160,21 +160,8 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
 
           {/* Right Side Actions */}
           <div className="hidden lg:flex items-center space-x-2 xl:space-x-3 flex-shrink-0">
-            {/* Language Toggle */}
-            <motion.button
-              onClick={() => onLanguageChange(language === 'en' ? 'ur' : 'en')}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 text-sm font-medium ${
-                isScrolled
-                  ? 'bg-jamia-primary text-white hover:bg-jamia-primary-dark shadow-md hover:shadow-lg'
-                  : 'bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border border-white/30'
-              }`}
-              aria-label="Toggle language"
-            >
-              <MdLanguage className="text-lg" />
-              <span>{language === 'en' ? 'اردو' : 'English'}</span>
-            </motion.button>
+            {/* Language Selector */}
+            <LanguageSelector isScrolled={isScrolled} />
 
             {/* Contact Buttons */}
             <div className="flex items-center space-x-2">
@@ -187,13 +174,13 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
                     ? 'bg-jamia-primary text-white hover:bg-jamia-primary-dark shadow-md hover:shadow-lg'
                     : 'bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border border-white/30'
                 }`}
-                aria-label="Call"
-                title="Call Us"
+                aria-label={t('header.call')}
+                title={t('header.call')}
               >
                 <FaPhone className="text-base" />
               </motion.a>
               <motion.a
-                href="https://wa.me/91XXXXXXXXXX"
+                href="https://wa.me/917022918777"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, rotate: -5 }}
@@ -203,8 +190,8 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
                     ? 'bg-green-600 text-white hover:bg-green-700 shadow-md hover:shadow-lg'
                     : 'bg-green-600/90 backdrop-blur-sm text-white hover:bg-green-700 border border-green-500/30'
                 }`}
-                aria-label="WhatsApp"
-                title="WhatsApp Us"
+                aria-label={t('header.whatsapp')}
+                title={t('header.whatsapp')}
               >
                 <FaWhatsapp className="text-base" />
               </motion.a>
@@ -250,15 +237,16 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, height: 0, y: -20 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="lg:hidden mt-2 bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100"
-          >
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ opacity: 0, height: 0, y: -20 }}
+              animate={{ opacity: 1, height: 'auto', y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="lg:hidden mt-2 bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100"
+            >
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.id}
@@ -269,9 +257,10 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
                   className={`block w-full text-left px-4 py-3.5 text-gray-700 hover:bg-jamia-primary hover:text-white transition-all duration-200 border-b border-gray-100 last:border-0 ${
                     activeSection === item.id ? 'bg-jamia-primary/10 text-jamia-primary font-semibold' : ''
                   }`}
+                  aria-label={t(item.key)}
                 >
                   <span className="flex items-center justify-between">
-                    <span>{language === 'en' ? item.en : item.ur}</span>
+                    <span>{t(item.key)}</span>
                     {activeSection === item.id && (
                       <span className="text-jamia-accent">●</span>
                     )}
@@ -281,35 +270,32 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
               
               {/* Mobile Actions */}
               <div className="px-4 py-3 border-t border-gray-200 bg-gray-50 space-y-2">
-                <button
-                  onClick={() => onLanguageChange(language === 'en' ? 'ur' : 'en')}
-                  className="flex items-center space-x-2 text-jamia-primary font-medium w-full px-2 py-2 hover:bg-jamia-primary/10 rounded-lg transition-colors"
-                >
-                  <MdLanguage className="text-xl" />
-                  <span>{language === 'en' ? 'اردو' : 'English'}</span>
-                </button>
+                <LanguageSelector variant="mobile" />
                 
                 <div className="flex items-center space-x-3 pt-2">
                   <a
                     href="tel:+91XXXXXXXXXX"
                     className="flex-1 flex items-center justify-center space-x-2 px-4 py-2.5 bg-jamia-primary text-white rounded-lg hover:bg-jamia-primary-dark transition-colors font-medium"
+                    aria-label={t('header.call')}
                   >
                     <FaPhone />
-                    <span className="text-sm">{language === 'en' ? 'Call' : 'کال'}</span>
+                    <span className="text-sm">{t('header.call')}</span>
                   </a>
                   <a
-                    href="https://wa.me/91XXXXXXXXXX"
+                    href="https://wa.me/917022918777"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center space-x-2 px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                    aria-label={t('header.whatsapp')}
                   >
                     <FaWhatsapp />
-                    <span className="text-sm">WhatsApp</span>
+                    <span className="text-sm">{t('header.whatsapp')}</span>
                   </a>
                 </div>
               </div>
             </motion.div>
-        )}
+          )}
+        </AnimatePresence>
       </nav>
     </motion.header>
   );

@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaImages, FaTimes } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { GalleryImage } from '../types';
 
-interface GalleryProps {
-  language: 'en' | 'ur';
-}
-
-const Gallery: React.FC<GalleryProps> = ({ language }) => {
+const Gallery: React.FC = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -83,7 +81,7 @@ const Gallery: React.FC<GalleryProps> = ({ language }) => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.3 }}
               >
-                {language === 'en' ? 'Gallery' : 'گیلری'}
+                {t('gallery.title')}
               </motion.h2>
               <motion.div 
                 className="w-24 h-1 bg-gradient-to-r from-jamia-accent to-jamia-primary mx-auto mb-6 rounded-full"
@@ -92,9 +90,7 @@ const Gallery: React.FC<GalleryProps> = ({ language }) => {
                 transition={{ delay: 0.4, duration: 0.6 }}
               />
               <p className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto">
-                {language === 'en' 
-                  ? 'A glimpse into our campus and facilities' 
-                  : 'ہمارے کیمپس اور سہولیات کی ایک جھلک'}
+                {t('gallery.subtitle')}
               </p>
             </div>
 
@@ -116,9 +112,9 @@ const Gallery: React.FC<GalleryProps> = ({ language }) => {
                         <div className="relative z-10 text-center">
                           <FaImages className="text-5xl mb-4 mx-auto" />
                           <p className="text-lg font-semibold mb-2">{image.caption}</p>
-                          <p className="text-sm opacity-90 mb-3">{language === 'en' ? 'Click to view on Google Maps' : 'گوگل میپس پر دیکھنے کے لیے کلک کریں'}</p>
+                          <p className="text-sm opacity-90 mb-3">{t('gallery.map.click', { defaultValue: 'Click to view on Google Maps' })}</p>
                           <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg text-sm">
-                            {language === 'en' ? 'View Location' : 'مقام دیکھیں'}
+                            {t('gallery.map.view', { defaultValue: 'View Location' })}
                           </div>
                         </div>
                       </div>
@@ -135,7 +131,7 @@ const Gallery: React.FC<GalleryProps> = ({ language }) => {
                     <div className="p-4 text-white w-full">
                       <p className="font-semibold text-lg">{image.caption}</p>
                       {image.src.includes('maps.app.goo.gl') && (
-                        <p className="text-sm opacity-90 mt-1">{language === 'en' ? 'View on Maps' : 'نقشہ پر دیکھیں'}</p>
+                        <p className="text-sm opacity-90 mt-1">{t('gallery.map.view', { defaultValue: 'View on Maps' })}</p>
                       )}
                     </div>
                   </div>
@@ -165,7 +161,7 @@ const Gallery: React.FC<GalleryProps> = ({ language }) => {
                 setSelectedImage(null);
               }}
               className="absolute top-4 right-4 text-white bg-white/20 backdrop-blur-sm p-3 rounded-full hover:bg-white/30 transition-colors"
-              aria-label="Close"
+              aria-label={t('common.close')}
             >
               <FaTimes className="text-2xl" />
             </motion.button>

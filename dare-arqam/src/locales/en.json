@@ -1,0 +1,314 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "download": "Download",
+    "contact": "Contact",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "name": "Name",
+    "message": "Message",
+    "send": "Send"
+  },
+  "header": {
+    "title": "JAMIA DAR-E-ARQAM",
+    "subtitle": "Karoshi",
+    "nav": {
+      "about": "About",
+      "tarbiyat": "Tarbiyat Policy",
+      "programs": "Programs",
+      "facilities": "Facilities",
+      "admissions": "Admissions",
+      "contact": "Contact"
+    },
+    "language": "Language",
+    "call": "Call",
+    "whatsapp": "WhatsApp"
+  },
+  "hero": {
+    "title": "JAMIA DAR-E-ARQAM",
+    "subtitle": "Karoshi",
+    "tagline": "Nurturing Faith, Knowledge & Character",
+    "cta": {
+      "admissions": "Admissions Open",
+      "learnMore": "Learn More"
+    },
+    "scrollDown": "Scroll down"
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Jamia Dar-E-Arqam Karoshi is a distinguished residential Islamic educational institution for boys, dedicated to providing comprehensive Islamic education combined with contemporary academic curriculum. We strive to develop students not just as seekers of knowledge, but as God-fearing, morally upright, and responsible individuals who act according to the spirit of Islam in every field of life.",
+    "managedBy": "Managed by Ulunuha Educational Trust",
+    "features": {
+      "quranic": {
+        "title": "Quranic Studies",
+        "description": "Comprehensive Quranic education including Hifz, Nazra, and Tajweed"
+      },
+      "islamic": {
+        "title": "Islamic Sciences",
+        "description": "Study of Hadith, Fiqh, and other Islamic sciences"
+      },
+      "residential": {
+        "title": "Residential Facility",
+        "description": "Safe and nurturing residential environment for boys"
+      },
+      "school": {
+        "title": "School Education",
+        "description": "Integrated contemporary school curriculum alongside Islamic studies"
+      }
+    }
+  },
+  "tarbiyat": {
+    "title": "Tarbiyat Policy",
+    "objective": {
+      "title": "Maqsad (Objective)",
+      "text": "To develop students not just as seekers of knowledge, but as God-fearing, morally upright, and responsible individuals who act according to the spirit of Islam in every field of life."
+    },
+    "policies": {
+      "prayer": {
+        "title": "Prayer & Worship",
+        "items": [
+          "Five daily prayers (compulsory)",
+          "Morning assembly with Dua, Quran recitation, and spiritual practices",
+          "Friday congregational prayers at the mosque",
+          "Encouragement of optional prayers (Nawafil)",
+          "Regular Dhikr and remembrance of Allah"
+        ]
+      },
+      "moral": {
+        "title": "Moral Training",
+        "items": [
+          "Respect for teachers and elders",
+          "Compassion for younger ones",
+          "Courteous communication",
+          "Avoiding: lies, backbiting, anger, and negligence",
+          "Teaching Islamic greetings (Salam) and ethical manners",
+          "Promoting honesty, integrity, and truthfulness"
+        ]
+      },
+      "punctuality": {
+        "title": "Punctuality & Responsibility",
+        "items": [
+          "Discipline policy for late arrivals",
+          "Parent communication for persistent issues",
+          "Homework completion requirements",
+          "Care for personal belongings, clothes, and books",
+          "Time management and organizational skills",
+          "Accountability for actions and commitments"
+        ]
+      },
+      "cleanliness": {
+        "title": "Cleanliness & Etiquette",
+        "items": [
+          "Personal hygiene standards",
+          "Clean clothing and body",
+          "Maintaining cleanliness of premises",
+          "Health and hygiene awareness",
+          "Islamic etiquette in daily activities",
+          "Respect for shared spaces"
+        ]
+      },
+      "social": {
+        "title": "Social Behavior",
+        "items": [
+          "Positive interaction with peers and community",
+          "Teamwork and cooperation",
+          "Respect for diversity and differences",
+          "Conflict resolution skills",
+          "Community service and social responsibility",
+          "Building healthy relationships"
+        ]
+      }
+    }
+  },
+  "programs": {
+    "title": "Educational Programs",
+    "subtitle": "Comprehensive Islamic and Contemporary Education",
+    "quranic": {
+      "title": "Quranic Studies",
+      "description": "Comprehensive Quranic education including Hifz (memorization), Nazra (reading), and Tajweed (proper recitation)",
+      "items": [
+        "Hifz Program (Quran Memorization)",
+        "Nazra (Quran Reading)",
+        "Tajweed (Proper Recitation Rules)",
+        "Tafseer (Quranic Exegesis)"
+      ]
+    },
+    "hadith": {
+      "title": "Hadith & Islamic Sciences",
+      "description": "Deep study of Hadith literature, Fiqh (Islamic jurisprudence), Aqeedah (Islamic creed), and Seerah (Prophetic biography)",
+      "items": [
+        "Hadith Studies",
+        "Fiqh (Islamic Jurisprudence)",
+        "Aqeedah (Islamic Creed)",
+        "Seerah (Prophetic Biography)"
+      ]
+    },
+    "school": {
+      "title": "School Curriculum",
+      "description": "Integrated contemporary school education covering core subjects aligned with standard educational boards",
+      "items": [
+        "Mathematics & Sciences",
+        "Languages (Urdu, English, Arabic)",
+        "Social Studies",
+        "Computer Education"
+      ]
+    },
+    "residential": {
+      "title": "Residential Program",
+      "description": "Complete residential facility providing a safe, disciplined, and nurturing environment for holistic development",
+      "items": [
+        "24/7 Supervision & Care",
+        "Structured Daily Routine",
+        "Healthy Meals & Nutrition",
+        "Recreational Activities",
+        "Character Building Programs"
+      ]
+    }
+  },
+  "facilities": {
+    "title": "Facilities",
+    "subtitle": "Modern Infrastructure for Holistic Development"
+  },
+  "admissions": {
+    "title": "Admissions",
+    "subtitle": "We welcome students seeking quality Islamic education. Admissions are open for the upcoming academic year.",
+    "ageGroups": {
+      "title": "Age Groups",
+      "description": "We accept students from ages 6-18 years"
+    },
+    "documents": {
+      "title": "Required Documents",
+      "items": [
+        "Birth Certificate",
+        "Previous School Records",
+        "Medical Certificate",
+        "Photographs"
+      ]
+    },
+    "process": {
+      "title": "Application Process",
+      "description": "Submit the inquiry form below or contact us directly. Our team will guide you through the admission process."
+    },
+    "prospectus": {
+      "title": "Download Prospectus:",
+      "button": "Download PDF",
+      "downloading": "Downloading...",
+      "success": "Prospectus downloaded successfully!",
+      "error": "Error downloading prospectus. Please try again."
+    },
+    "form": {
+      "title": "Inquiry Form",
+      "studentName": "Student's Name",
+      "parentName": "Parent/Guardian Name",
+      "phone": "Phone",
+      "email": "Email",
+      "age": "Student's Age",
+      "message": "Message (Optional)",
+      "submit": "Submit Inquiry",
+      "submitting": "Submitting...",
+      "errors": {
+        "studentName": "Student name is required",
+        "parentName": "Parent/Guardian name is required",
+        "phone": "Phone number is required",
+        "phoneInvalid": "Invalid phone number",
+        "emailInvalid": "Invalid email address",
+        "age": "Age is required",
+        "ageRange": "Age must be between 6 and 18",
+        "fixErrors": "Please fix the errors in the form"
+      },
+      "success": "Thank you for your interest! We will contact you soon."
+    }
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "What Parents and Students Say"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Campus Life and Activities"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "subtitle": "Latest News and Updates"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with us",
+    "form": {
+      "title": "Send us a Message",
+      "name": "Your Name",
+      "email": "Your Email",
+      "phone": "Phone Number",
+      "subject": "Subject",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "errors": {
+        "name": "Name is required",
+        "email": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "subject": "Subject is required",
+        "message": "Message is required",
+        "fillAll": "Please fill all required fields"
+      },
+      "success": "Thank you for contacting us! We will respond soon."
+    },
+    "info": {
+      "title": "Contact Information",
+      "location": "Location",
+      "address": "Karoshi",
+      "coordinates": "Coordinates: 16°21'51.7\"N 74°34'43.2\"E",
+      "phone": "Phone",
+      "email": "Email",
+      "whatsapp": "WhatsApp"
+    }
+  },
+  "footer": {
+    "about": {
+      "title": "Jamia Dar-E-Arqam",
+      "description": "A residential Islamic educational institution dedicated to nurturing faith, knowledge, and character.",
+      "managedBy": "Managed by Ulunuha Educational Trust"
+    },
+    "links": {
+      "title": "Quick Links",
+      "about": "About Us",
+      "programs": "Programs",
+      "admissions": "Admissions",
+      "contact": "Contact"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "address": "Karoshi",
+      "phone": "+91 70229 18777",
+      "email": "info@jamiadarqamkaroshi.com"
+    },
+    "social": {
+      "title": "Follow Us",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "whatsapp": "WhatsApp",
+      "youtube": "YouTube"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Stay updated with our latest news and updates.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "subscribing": "Subscribing...",
+      "success": "Thank you for subscribing!",
+      "error": "Please enter a valid email"
+    },
+    "copyright": "© {{year}} Jamia Dar-E-Arqam Karoshi. All rights reserved.",
+    "rights": "All rights reserved"
+  }
+}
+

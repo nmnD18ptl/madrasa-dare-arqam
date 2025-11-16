@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaSpinner } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -7,11 +8,8 @@ import FloatingLabelInput from '../components/FloatingLabelInput';
 import Toast from '../components/Toast';
 import type { ToastType } from '../components/Toast';
 
-interface ContactProps {
-  language: 'en' | 'ur';
-}
-
-const Contact: React.FC<ContactProps> = ({ language }) => {
+const Contact: React.FC = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [formData, setFormData] = useState({
@@ -35,24 +33,24 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
     // Validation
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) {
-      newErrors.name = language === 'en' ? 'Name is required' : 'نام ضروری ہے';
+      newErrors.name = t('contact.form.errors.name');
     }
     if (!formData.email.trim()) {
-      newErrors.email = language === 'en' ? 'Email is required' : 'ای میل ضروری ہے';
+      newErrors.email = t('contact.form.errors.email');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = language === 'en' ? 'Invalid email address' : 'غلط ای میل پتہ';
+      newErrors.email = t('contact.form.errors.emailInvalid');
     }
     if (!formData.subject.trim()) {
-      newErrors.subject = language === 'en' ? 'Subject is required' : 'موضوع ضروری ہے';
+      newErrors.subject = t('contact.form.errors.subject');
     }
     if (!formData.message.trim()) {
-      newErrors.message = language === 'en' ? 'Message is required' : 'پیغام ضروری ہے';
+      newErrors.message = t('contact.form.errors.message');
     }
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
       setToast({
-        message: language === 'en' ? 'Please fill all required fields' : 'براہ کرم تمام ضروری فیلڈز بھریں',
+        message: t('contact.form.errors.fillAll'),
         type: 'error',
         visible: true,
       });
@@ -65,9 +63,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
     setTimeout(() => {
       setIsSubmitting(false);
       setToast({
-        message: language === 'en' 
-          ? 'Thank you for contacting us! We will respond soon.' 
-          : 'ہم سے رابطہ کرنے کا شکریہ! ہم جلد جواب دیں گے۔',
+        message: t('contact.form.success'),
         type: 'success',
         visible: true,
       });
@@ -117,7 +113,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.2 }}
               >
-                {language === 'en' ? 'Contact Us' : 'رابطہ'}
+                {t('contact.title')}
               </motion.h2>
               <motion.div 
                 className="w-24 h-1 bg-gradient-to-r from-jamia-accent to-jamia-primary mx-auto mb-6 sm:mb-8 rounded-full"
@@ -126,9 +122,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                 transition={{ delay: 0.4, duration: 0.6 }}
               />
               <p className="text-base sm:text-lg text-gray-700">
-                {language === 'en' 
-                  ? 'Get in touch with us for any inquiries or visit our campus' 
-                  : 'کسی بھی دریافت کے لیے ہم سے رابطہ کریں یا ہمارے کیمپس کا دورہ کریں'}
+                {t('contact.subtitle')}
               </p>
             </div>
 
@@ -147,7 +141,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-800 mb-2">
-                        {language === 'en' ? 'Address' : 'پتہ'}
+                        {t('contact.info.location')}
                       </h3>
                       <p className="text-gray-600 mb-1">Karoshi</p>
                       <p className="text-sm text-gray-500">
@@ -169,10 +163,10 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-800 mb-2">
-                        {language === 'en' ? 'Phone' : 'فون'}
+                        {t('contact.info.phone')}
                       </h3>
                       <a href="tel:+91XXXXXXXXXX" className="text-gray-600 hover:text-jamia-primary transition-colors">
-                        +91 XXXXX XXXXX
+                        +91 70229 18777
                       </a>
                     </div>
                   </div>
@@ -190,7 +184,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-800 mb-2">
-                        {language === 'en' ? 'Email' : 'ای میل'}
+                        {t('contact.info.email')}
                       </h3>
                       <a href="mailto:info@jamiadarqamkaroshi.com" className="text-gray-600 hover:text-jamia-primary transition-colors">
                         info@jamiadarqamkaroshi.com
@@ -217,7 +211,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                         rel="noopener noreferrer"
                         className="text-gray-600 hover:text-green-600 transition-colors"
                       >
-                        {language === 'en' ? 'Message us on WhatsApp' : 'واٹس ایپ پر پیغام بھیجیں'}
+                        {t('contact.info.whatsapp')}
                       </a>
                     </div>
                   </div>
@@ -231,7 +225,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                   className="glass p-6 rounded-xl shadow-lg overflow-hidden"
                 >
                   <h3 className="font-semibold text-gray-800 mb-4">
-                    {language === 'en' ? 'Location' : 'مقام'}
+                    {t('contact.info.location')}
                   </h3>
                   <div className="w-full h-64 rounded-lg overflow-hidden">
                     <iframe
@@ -252,7 +246,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                       rel="noopener noreferrer"
                       className="hover:text-jamia-primary transition-colors"
                     >
-                      {language === 'en' ? 'Open in Google Maps' : 'گوگل میپس میں کھولیں'}
+                      {t('contact.map.open', { defaultValue: 'Open in Google Maps' })}
                     </a>
                   </p>
                 </motion.div>
@@ -266,13 +260,13 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                 className="glass p-6 sm:p-8 rounded-xl shadow-xl"
               >
                 <h3 className="text-2xl font-heading font-bold text-jamia-primary mb-6">
-                  {language === 'en' ? 'Send us a Message' : 'ہمیں پیغام بھیجیں'}
+                  {t('contact.form.title')}
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <FloatingLabelInput
                     id="name"
                     name="name"
-                    label={language === 'en' ? 'Name' : 'نام'}
+                    label={t('contact.form.name')}
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -283,7 +277,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                     <FloatingLabelInput
                       id="email"
                       name="email"
-                      label={language === 'en' ? 'Email' : 'ای میل'}
+                      label={t('contact.form.email')}
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
@@ -294,7 +288,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                     <FloatingLabelInput
                       id="phone"
                       name="phone"
-                      label={language === 'en' ? 'Phone' : 'فون'}
+                      label={t('contact.form.phone')}
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange}
@@ -305,7 +299,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                   <FloatingLabelInput
                     id="subject"
                     name="subject"
-                    label={language === 'en' ? 'Subject' : 'موضوع'}
+                    label={t('contact.form.subject')}
                     value={formData.subject}
                     onChange={handleChange}
                     required
@@ -315,7 +309,7 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                   <FloatingLabelInput
                     id="message"
                     name="message"
-                    label={language === 'en' ? 'Message' : 'پیغام'}
+                    label={t('contact.form.message')}
                     value={formData.message}
                     onChange={handleChange}
                     required
@@ -334,10 +328,10 @@ const Contact: React.FC<ContactProps> = ({ language }) => {
                     {isSubmitting ? (
                       <>
                         <FaSpinner className="animate-spin" />
-                        <span>{language === 'en' ? 'Sending...' : 'بھیجا جا رہا ہے...'}</span>
+                        <span>{t('contact.form.submitting')}</span>
                       </>
                     ) : (
-                      <span>{language === 'en' ? 'Send Message' : 'پیغام بھیجیں'}</span>
+                      <span>{t('contact.form.submit')}</span>
                     )}
                   </motion.button>
                 </form>

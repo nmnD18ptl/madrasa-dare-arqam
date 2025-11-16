@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaFileAlt, FaCheckCircle, FaDownload, FaSpinner } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -8,11 +9,8 @@ import Toast from '../components/Toast';
 import type { ToastType } from '../components/Toast';
 import jsPDF from 'jspdf';
 
-interface AdmissionsProps {
-  language: 'en' | 'ur';
-}
-
-const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
+const Admissions: React.FC = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [formData, setFormData] = useState({
@@ -36,29 +34,29 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = language === 'en' ? 'Student name is required' : 'طالب علم کا نام ضروری ہے';
+      newErrors.name = t('admissions.form.errors.studentName');
     }
 
     if (!formData.parentName.trim()) {
-      newErrors.parentName = language === 'en' ? 'Parent/Guardian name is required' : 'والدین/سرپرست کا نام ضروری ہے';
+      newErrors.parentName = t('admissions.form.errors.parentName');
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = language === 'en' ? 'Phone number is required' : 'فون نمبر ضروری ہے';
+      newErrors.phone = t('admissions.form.errors.phone');
     } else if (!/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/.test(formData.phone)) {
-      newErrors.phone = language === 'en' ? 'Invalid phone number' : 'غلط فون نمبر';
+      newErrors.phone = t('admissions.form.errors.phoneInvalid');
     }
 
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = language === 'en' ? 'Invalid email address' : 'غلط ای میل پتہ';
+      newErrors.email = t('admissions.form.errors.emailInvalid');
     }
 
     if (!formData.age) {
-      newErrors.age = language === 'en' ? 'Age is required' : 'عمر ضروری ہے';
+      newErrors.age = t('admissions.form.errors.age');
     } else {
       const ageNum = parseInt(formData.age);
       if (ageNum < 6 || ageNum > 18) {
-        newErrors.age = language === 'en' ? 'Age must be between 6 and 18' : 'عمر 6 سے 18 سال کے درمیان ہونی چاہیے';
+        newErrors.age = t('admissions.form.errors.ageRange');
       }
     }
 
@@ -71,7 +69,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
     
     if (!validateForm()) {
       setToast({
-        message: language === 'en' ? 'Please fix the errors in the form' : 'براہ کرم فارم کی غلطیوں کو درست کریں',
+        message: t('admissions.form.errors.fixErrors'),
         type: 'error',
         visible: true,
       });
@@ -84,9 +82,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
     setTimeout(() => {
       setIsSubmitting(false);
       setToast({
-        message: language === 'en' 
-          ? 'Thank you for your interest! We will contact you soon.' 
-          : 'آپ کی دلچسپی کا شکریہ! ہم جلد آپ سے رابطہ کریں گے۔',
+        message: t('admissions.form.success'),
         type: 'success',
         visible: true,
       });
@@ -229,9 +225,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
       
       setIsDownloading(false);
       setToast({
-        message: language === 'en' 
-          ? 'Prospectus downloaded successfully!' 
-          : 'پروسپیکٹس کامیابی سے ڈاؤن لوڈ ہو گیا!',
+        message: t('admissions.prospectus.success'),
         type: 'success',
         visible: true,
       });
@@ -239,9 +233,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
       console.error('Error generating PDF:', error);
       setIsDownloading(false);
       setToast({
-        message: language === 'en' 
-          ? 'Error downloading prospectus. Please try again.' 
-          : 'پروسپیکٹس ڈاؤن لوڈ کرنے میں خرابی۔ براہ کرم دوبارہ کوشش کریں۔',
+        message: t('admissions.prospectus.error'),
         type: 'error',
         visible: true,
       });
@@ -270,7 +262,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.2 }}
               >
-                {language === 'en' ? 'Admissions' : 'داخلہ'}
+                {t('admissions.title')}
               </motion.h2>
               <motion.div 
                 className="w-24 h-1 bg-gradient-to-r from-jamia-accent to-jamia-primary mx-auto mb-6 sm:mb-8 rounded-full"
@@ -279,11 +271,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                 transition={{ delay: 0.4, duration: 0.6 }}
               />
               <p className="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto">
-                {language === 'en' ? (
-                  'We welcome students seeking quality Islamic education. Admissions are open for the upcoming academic year.'
-                ) : (
-                  'ہم معیاری اسلامی تعلیم کے طالب علموں کا خیرمقدم کرتے ہیں۔ آئندہ تعلیمی سال کے لیے داخلے کھلے ہیں۔'
-                )}
+                {t('admissions.subtitle')}
               </p>
             </div>
 
@@ -291,7 +279,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
               {/* Admission Info */}
               <div>
                 <h3 className="text-2xl font-heading font-bold text-jamia-primary mb-6">
-                  {language === 'en' ? 'Admission Information' : 'داخلہ کی معلومات'}
+                  {t('admissions.info.title', { defaultValue: 'Admission Information' })}
                 </h3>
 
                 <div className="space-y-6">
@@ -304,12 +292,10 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                     <FaCheckCircle className="text-jamia-primary text-2xl mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">
-                        {language === 'en' ? 'Age Groups' : 'عمر کے گروپ'}
+                        {t('admissions.ageGroups.title')}
                       </h4>
                       <p className="text-gray-600">
-                        {language === 'en' 
-                          ? 'We accept students from ages 6-18 years' 
-                          : 'ہم 6-18 سال کی عمر کے طلباء کو قبول کرتے ہیں'}
+                        {t('admissions.ageGroups.description')}
                       </p>
                     </div>
                   </motion.div>
@@ -323,13 +309,12 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                     <FaCheckCircle className="text-jamia-primary text-2xl mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">
-                        {language === 'en' ? 'Required Documents' : 'ضروری دستاویزات'}
+                        {t('admissions.documents.title')}
                       </h4>
                       <ul className="text-gray-600 space-y-1">
-                        <li>• {language === 'en' ? 'Birth Certificate' : 'پیدائشی سرٹیفکیٹ'}</li>
-                        <li>• {language === 'en' ? 'Previous School Records' : 'پچھلے اسکول کے ریکارڈ'}</li>
-                        <li>• {language === 'en' ? 'Medical Certificate' : 'طبی سرٹیفکیٹ'}</li>
-                        <li>• {language === 'en' ? 'Photographs' : 'تصاویر'}</li>
+                        {(t('admissions.documents.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                          <li key={idx}>• {item}</li>
+                        ))}
                       </ul>
                     </div>
                   </motion.div>
@@ -343,12 +328,10 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                     <FaCheckCircle className="text-jamia-primary text-2xl mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">
-                        {language === 'en' ? 'Application Process' : 'درخواست کی کارروائی'}
+                        {t('admissions.process.title')}
                       </h4>
                       <p className="text-gray-600">
-                        {language === 'en' 
-                          ? 'Submit the inquiry form below or contact us directly. Our team will guide you through the admission process.' 
-                          : 'ذیل میں دریافت فارم جمع کروائیں یا براہ راست ہم سے رابطہ کریں۔ ہماری ٹیم آپ کو داخلہ کے عمل میں رہنمائی فراہم کرے گی۔'}
+                        {t('admissions.process.description')}
                       </p>
                     </div>
                   </motion.div>
@@ -362,7 +345,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                 >
                   <p className="text-gray-700 mb-4">
                     <strong className="text-jamia-primary">
-                      {language === 'en' ? 'Download Prospectus:' : 'پروسپیکٹس ڈاؤن لوڈ کریں:'}
+                      {t('admissions.prospectus.title')}
                     </strong>
                   </p>
                   <motion.button
@@ -375,12 +358,12 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                     {isDownloading ? (
                       <>
                         <FaSpinner className="animate-spin" />
-                        <span>{language === 'en' ? 'Downloading...' : 'ڈاؤن لوڈ ہو رہا ہے...'}</span>
+                        <span>{t('admissions.prospectus.downloading')}</span>
                       </>
                     ) : (
                       <>
                         <FaDownload />
-                        <span>{language === 'en' ? 'Download PDF' : 'PDF ڈاؤن لوڈ کریں'}</span>
+                        <span>{t('admissions.prospectus.button')}</span>
                       </>
                     )}
                   </motion.button>
@@ -395,13 +378,13 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                 className="glass p-6 sm:p-8 rounded-xl shadow-xl"
               >
                 <h3 className="text-2xl font-heading font-bold text-jamia-primary mb-6">
-                  {language === 'en' ? 'Inquiry Form' : 'دریافت فارم'}
+                  {t('admissions.form.title')}
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <FloatingLabelInput
                     id="name"
                     name="name"
-                    label={language === 'en' ? "Student's Name" : 'طالب علم کا نام'}
+                    label={t('admissions.form.studentName')}
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -411,7 +394,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                   <FloatingLabelInput
                     id="parentName"
                     name="parentName"
-                    label={language === 'en' ? "Parent/Guardian Name" : 'والدین/سرپرست کا نام'}
+                    label={t('admissions.form.parentName')}
                     value={formData.parentName}
                     onChange={handleChange}
                     required
@@ -422,7 +405,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                     <FloatingLabelInput
                       id="phone"
                       name="phone"
-                      label={language === 'en' ? 'Phone' : 'فون'}
+                      label={t('admissions.form.phone')}
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange}
@@ -433,7 +416,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                     <FloatingLabelInput
                       id="email"
                       name="email"
-                      label={language === 'en' ? 'Email' : 'ای میل'}
+                      label={t('admissions.form.email')}
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
@@ -444,7 +427,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                   <FloatingLabelInput
                     id="age"
                     name="age"
-                    label={language === 'en' ? "Student's Age" : 'طالب علم کی عمر'}
+                    label={t('admissions.form.age')}
                     type="number"
                     value={formData.age}
                     onChange={handleChange}
@@ -455,7 +438,7 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                   <FloatingLabelInput
                     id="message"
                     name="message"
-                    label={language === 'en' ? 'Message (Optional)' : 'پیغام (اختیاری)'}
+                    label={t('admissions.form.message')}
                     value={formData.message}
                     onChange={handleChange}
                     textarea
@@ -472,10 +455,10 @@ const Admissions: React.FC<AdmissionsProps> = ({ language }) => {
                     {isSubmitting ? (
                       <>
                         <FaSpinner className="animate-spin" />
-                        <span>{language === 'en' ? 'Submitting...' : 'جمع کیا جا رہا ہے...'}</span>
+                        <span>{t('admissions.form.submitting')}</span>
                       </>
                     ) : (
-                      <span>{language === 'en' ? 'Submit Inquiry' : 'دریافت جمع کروائیں'}</span>
+                      <span>{t('admissions.form.submit')}</span>
                     )}
                   </motion.button>
                 </form>

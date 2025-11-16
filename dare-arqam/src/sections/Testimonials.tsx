@@ -1,15 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaQuoteLeft, FaStar } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Testimonial } from '../types';
 
-interface TestimonialsProps {
-  language: 'en' | 'ur';
-}
-
-const Testimonials: React.FC<TestimonialsProps> = ({ language }) => {
+const Testimonials: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -49,13 +47,11 @@ const Testimonials: React.FC<TestimonialsProps> = ({ language }) => {
         >
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-jamia-primary mb-6">
-              {language === 'en' ? 'Testimonials' : 'شہادتیں'}
+              {t('testimonials.title')}
             </h2>
             <div className="w-24 h-1 bg-jamia-accent-orange mx-auto mb-6"></div>
             <p className="text-lg text-gray-700">
-              {language === 'en' 
-                ? 'What parents and alumni say about us' 
-                : 'والدین اور سابق طلباء ہمارے بارے میں کیا کہتے ہیں'}
+              {t('testimonials.subtitle')}
             </p>
           </div>
 
@@ -75,14 +71,14 @@ const Testimonials: React.FC<TestimonialsProps> = ({ language }) => {
                 </div>
                 <FaQuoteLeft className="text-3xl text-jamia-primary/30 mb-4" />
                 <p className="text-gray-700 mb-6 leading-relaxed">
-                  {language === 'en' ? testimonial.text : testimonial.textUrdu || testimonial.text}
+                  {testimonial.textUrdu && ['ur', 'ar'].includes(i18n.language) ? testimonial.textUrdu : testimonial.text}
                 </p>
                 <div className="border-t border-gray-200 pt-4">
                   <p className="font-semibold text-jamia-primary">
                     {testimonial.name}
                   </p>
                   <p className="text-sm text-gray-600">
-                    {language === 'en' ? testimonial.relation : (testimonial.relation === 'Parent' ? 'والدین' : 'سابق طالب علم')}
+                    {testimonial.relation}
                   </p>
                 </div>
               </motion.div>

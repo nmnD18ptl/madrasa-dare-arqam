@@ -208,7 +208,7 @@ The website supports bilingual content (English/Urdu). To add new translations:
 
 For inquiries about this website or the institution:
 - Email: info@jamiadarqamkaroshi.com
-- Phone: +91 XXXXX XXXXX
+- Phone: +91 70229 18777
 
 ---
 

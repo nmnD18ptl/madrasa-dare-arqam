@@ -1,52 +1,38 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaBook, FaGraduationCap, FaHome, FaUsers } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
-interface AboutProps {
-  language: 'en' | 'ur';
-}
-
-const About: React.FC<AboutProps> = ({ language }) => {
+const About: React.FC = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const features = [
     {
       icon: FaBook,
-      title: { en: 'Quranic Studies', ur: 'قرآنی تعلیم' },
-      description: {
-        en: 'Comprehensive Quranic education including Hifz, Nazra, and Tajweed',
-        ur: 'قرآن کی جامع تعلیم بشمول حفظ، ناظرہ اور تجوید',
-      },
+      titleKey: 'about.features.quranic.title',
+      descriptionKey: 'about.features.quranic.description',
       color: 'from-blue-500 to-cyan-500',
     },
     {
       icon: FaGraduationCap,
-      title: { en: 'Islamic Sciences', ur: 'اسلامی علوم' },
-      description: {
-        en: 'Study of Hadith, Fiqh, and other Islamic sciences',
-        ur: 'حدیث، فقہ اور دیگر اسلامی علوم کا مطالعہ',
-      },
+      titleKey: 'about.features.islamic.title',
+      descriptionKey: 'about.features.islamic.description',
       color: 'from-jamia-primary to-jamia-primary-light',
     },
     {
       icon: FaHome,
-      title: { en: 'Residential Facility', ur: 'رہائشی سہولت' },
-      description: {
-        en: 'Safe and nurturing residential environment for boys',
-        ur: 'طلباء کے لیے محفوظ اور پرورش کا ماحول',
-      },
+      titleKey: 'about.features.residential.title',
+      descriptionKey: 'about.features.residential.description',
       color: 'from-jamia-accent to-jamia-accent-light',
     },
     {
       icon: FaUsers,
-      title: { en: 'School Education', ur: 'اسکول کی تعلیم' },
-      description: {
-        en: 'Integrated contemporary school curriculum alongside Islamic studies',
-        ur: 'اسلامی تعلیم کے ساتھ عصری اسکول کا نصاب',
-      },
+      titleKey: 'about.features.school.title',
+      descriptionKey: 'about.features.school.description',
       color: 'from-purple-500 to-pink-500',
     },
   ];
@@ -88,7 +74,7 @@ const About: React.FC<AboutProps> = ({ language }) => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2 }}
           >
-            {language === 'en' ? 'About Us' : 'ہمارے بارے میں'}
+            {t('about.title')}
           </motion.h2>
           <motion.div 
             className="w-24 h-1 bg-gradient-to-r from-jamia-accent to-jamia-primary mx-auto mb-6 sm:mb-8 rounded-full"
@@ -103,39 +89,12 @@ const About: React.FC<AboutProps> = ({ language }) => {
             transition={{ delay: 0.3 }}
           >
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-              {language === 'en' ? (
-                <>
-                  <strong className="text-jamia-primary">Jamia Dar-E-Arqam Karoshi</strong> is a distinguished residential Islamic
-                  educational institution for boys, dedicated to providing comprehensive Islamic education
-                  combined with contemporary academic curriculum. Under the management of{' '}
-                  <strong className="text-jamia-primary">Ulunuha Educational Trust</strong>, we strive to nurture students who are
-                  not only well-versed in Islamic knowledge but also equipped with modern education
-                  and strong moral character.
-                </>
-              ) : (
-                <>
-                  <strong className="text-jamia-primary">جامعہ دارالارقم کروشی</strong> ایک معزز رہائشی اسلامی تعلیمی ادارہ ہے جو
-                  اسلامی تعلیم اور عصری تعلیم کا جامع نظام فراہم کرتا ہے۔{' '}
-                  <strong className="text-jamia-primary">المنہی تعلیمی ٹرسٹ</strong> کے زیر انتظام، ہم ایسے طلباء کی تربیت کرتے
-                  ہیں جو نہ صرف اسلامی علم میں ماہر ہوں بلکہ عصری تعلیم اور مضبوط اخلاقی کردار سے
-                  بھی مالا مال ہوں۔
-                </>
-              )}
+              {t('about.description')}
             </p>
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-              {language === 'en' ? (
-                <>
-                  Our institution offers a unique blend of traditional Islamic education and
-                  modern schooling, ensuring that students receive a well-rounded education
-                  that prepares them for both religious and worldly success.
-                </>
-              ) : (
-                <>
-                  ہمارا ادارہ روایتی اسلامی تعلیم اور جدید اسکولنگ کا ایک منفرد امتزاج پیش کرتا
-                  ہے، یقینی بناتا ہے کہ طلباء کو ایک متوازن تعلیم ملے جو انہیں مذہبی اور دنیاوی
-                  دونوں کامیابیوں کے لیے تیار کرے۔
-                </>
-              )}
+              {t('about.description2', { 
+                defaultValue: 'Our institution offers a unique blend of traditional Islamic education and modern schooling, ensuring that students receive a well-rounded education that prepares them for both religious and worldly success.' 
+              })}
             </p>
           </motion.div>
         </motion.div>
@@ -167,10 +126,10 @@ const About: React.FC<AboutProps> = ({ language }) => {
                     </div>
                   </motion.div>
                   <h3 className="text-xl sm:text-2xl font-heading font-semibold text-jamia-primary mb-3 sm:mb-4">
-                    {language === 'en' ? feature.title.en : feature.title.ur}
+                    {t(feature.titleKey)}
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    {language === 'en' ? feature.description.en : feature.description.ur}
+                    {t(feature.descriptionKey)}
                   </p>
                 </div>
               </motion.div>

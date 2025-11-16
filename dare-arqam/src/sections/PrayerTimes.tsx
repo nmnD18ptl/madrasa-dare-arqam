@@ -1,15 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaClock } from 'react-icons/fa';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { PrayerTime } from '../types';
 
-interface PrayerTimesProps {
-  language: 'en' | 'ur';
-}
-
-const PrayerTimes: React.FC<PrayerTimesProps> = ({ language }) => {
+const PrayerTimes: React.FC = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -22,12 +20,12 @@ const PrayerTimes: React.FC<PrayerTimesProps> = ({ language }) => {
     { name: 'Isha', time: '19:45' },
   ];
 
-  const prayerNames: Record<string, { en: string; ur: string }> = {
-    Fajr: { en: 'Fajr', ur: 'فجر' },
-    Dhuhr: { en: 'Dhuhr', ur: 'ظہر' },
-    Asr: { en: 'Asr', ur: 'عصر' },
-    Maghrib: { en: 'Maghrib', ur: 'مغرب' },
-    Isha: { en: 'Isha', ur: 'عشاء' },
+  const prayerNameKeys: Record<string, string> = {
+    Fajr: 'prayerTimes.fajr',
+    Dhuhr: 'prayerTimes.dhuhr',
+    Asr: 'prayerTimes.asr',
+    Maghrib: 'prayerTimes.maghrib',
+    Isha: 'prayerTimes.isha',
   };
 
   const getCurrentDate = () => {
@@ -68,7 +66,7 @@ const PrayerTimes: React.FC<PrayerTimesProps> = ({ language }) => {
                 <FaClock className="text-5xl text-jamia-accent-orange" />
               </div>
               <h2 className="text-3xl font-bold mb-2">
-                {language === 'en' ? 'Prayer Times' : 'نماز کے اوقات'}
+                {t('prayerTimes.title', { defaultValue: 'Prayer Times' })}
               </h2>
               <p className="text-gray-100 mb-4">{gregorianDate}</p>
               <p className="text-jamia-accent-orange font-semibold">{islamicDate}</p>
@@ -84,9 +82,7 @@ const PrayerTimes: React.FC<PrayerTimesProps> = ({ language }) => {
                   className="bg-white/10 rounded-lg p-4 text-center border border-white/20"
                 >
                   <div className="text-lg font-semibold mb-2">
-                    {language === 'en' 
-                      ? prayerNames[prayer.name].en 
-                      : prayerNames[prayer.name].ur}
+                    {t(prayerNameKeys[prayer.name], { defaultValue: prayer.name })}
                   </div>
                   <div className="text-2xl font-bold text-jamia-accent-orange">
                     {prayer.time}
@@ -96,9 +92,7 @@ const PrayerTimes: React.FC<PrayerTimesProps> = ({ language }) => {
             </div>
 
             <p className="text-center text-sm text-gray-200 mt-6">
-              {language === 'en' 
-                ? 'Prayer times are updated daily. Please verify with local mosque.' 
-                : 'نماز کے اوقات روزانہ اپ ڈیٹ ہوتے ہیں۔ براہ کرم مقامی مسجد سے تصدیق کریں۔'}
+              {t('prayerTimes.note', { defaultValue: 'Prayer times are updated daily. Please verify with local mosque.' })}
             </p>
           </div>
         </motion.div>

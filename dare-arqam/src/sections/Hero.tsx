@@ -1,14 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FaArrowDown } from 'react-icons/fa6';
 import { FaBookOpen } from 'react-icons/fa';
 import { MdMosque } from 'react-icons/md';
 
-interface HeroProps {
-  language: 'en' | 'ur';
-}
-
-const Hero: React.FC<HeroProps> = ({ language }) => {
+const Hero: React.FC = () => {
+  const { t } = useTranslation();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -29,14 +27,16 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
     <section 
       ref={heroRef}
       className="relative h-screen flex items-center justify-center overflow-hidden"
+      id="hero"
     >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img 
           src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy771WDHHMT7qZjtYp4Rc9-U8IeA4-Nka7A4RkOLCK145IZUb2TcQhBgcjD_tiU-Fph3t70-d5s3PqiWaZAuyUd46l-oQx-BmbjZVL8jsHd-QGUh7W3TghbGQbpljifdKNoh-g4=s680-w680-h510-rw"
-          alt="Jamia Dar-E-Arqam Campus"
+          alt={t('hero.title')}
           className="w-full h-full object-cover"
           style={{ objectPosition: 'center' }}
+          loading="eager"
         />
         {/* Animated Gradient Overlay */}
         <motion.div 
@@ -62,6 +62,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
+        aria-hidden="true"
       />
       
       {/* Floating Decorative Elements */}
@@ -76,6 +77,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
+        aria-hidden="true"
       />
       <motion.div
         className="absolute bottom-20 right-10 w-96 h-96 bg-jamia-accent-light/15 rounded-full blur-3xl"
@@ -88,6 +90,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
+        aria-hidden="true"
       />
 
       {/* Parallax Content */}
@@ -120,13 +123,13 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
                 ease: 'easeInOut',
               }}
             >
-              <MdMosque className="text-7xl md:text-9xl text-jamia-accent drop-shadow-2xl" />
+              <MdMosque className="text-7xl md:text-9xl text-jamia-accent drop-shadow-2xl" aria-hidden="true" />
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                 className="absolute -bottom-2 -right-2"
               >
-                <FaBookOpen className="text-4xl md:text-5xl text-white drop-shadow-lg" />
+                <FaBookOpen className="text-4xl md:text-5xl text-white drop-shadow-lg" aria-hidden="true" />
               </motion.div>
             </motion.div>
           </motion.div>
@@ -138,7 +141,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
             transition={{ delay: 0.4 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold mb-4 sm:mb-6 drop-shadow-2xl"
           >
-            {language === 'en' ? 'JAMIA DAR-E-ARQAM' : 'جامعہ دارالارقم'}
+            {t('hero.title')}
           </motion.h1>
 
           <motion.p
@@ -147,7 +150,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
             transition={{ delay: 0.5 }}
             className="text-lg sm:text-xl md:text-2xl mb-4 text-gray-100 font-medium"
           >
-            {language === 'en' ? 'Karoshi' : 'کروشی'}
+            {t('hero.subtitle')}
           </motion.p>
 
           {/* Animated Tagline */}
@@ -157,9 +160,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-8 sm:mb-12 text-jamia-accent drop-shadow-lg"
           >
-            {language === 'en' 
-              ? 'Nurturing Faith, Knowledge & Character' 
-              : 'ایمان، علم اور کردار کی تربیت'}
+            {t('hero.tagline')}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -174,16 +175,18 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
               className="btn-primary px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg min-w-[200px]"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={t('hero.cta.admissions')}
             >
-              {language === 'en' ? 'Admissions Open' : 'داخلے کھلے ہیں'}
+              {t('hero.cta.admissions')}
             </motion.button>
             <motion.button
               onClick={() => scrollToSection('about')}
               className="btn-secondary px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg min-w-[200px]"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={t('hero.cta.learnMore')}
             >
-              {language === 'en' ? 'Learn More' : 'مزید جانیں'}
+              {t('hero.cta.learnMore')}
             </motion.button>
           </motion.div>
 
@@ -203,7 +206,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
               }}
               onClick={() => scrollToSection('about')}
               className="text-white/70 hover:text-white transition-colors focus:outline-none"
-              aria-label="Scroll down"
+              aria-label={t('hero.scrollDown')}
             >
               <FaArrowDown className="text-3xl sm:text-4xl mx-auto" />
             </motion.button>
